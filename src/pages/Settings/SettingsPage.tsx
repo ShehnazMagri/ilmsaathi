@@ -7,7 +7,7 @@ export const SettingsPage: React.FC = () => {
   const { user, role } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
-  const [schoolName, setSchoolName] = useState('Aura International School');
+  const [schoolName, setSchoolName] = useState('ilmsaathi-school');
   const [academicYear, setAcademicYear] = useState('2026-2027');
   const [saved, setSaved] = useState(false);
 

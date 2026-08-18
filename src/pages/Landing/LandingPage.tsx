@@ -29,7 +29,7 @@ export const LandingPage: React.FC = () => {
           </div>
           <div>
             <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">
-              Aura International School
+              ilmsaathi-school
             </span>
             <span className="block text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Excellence in Education</span>
           </div>
@@ -118,7 +118,7 @@ export const LandingPage: React.FC = () => {
               A Legacy of Innovation, Ethics & Academic Greatness
             </h2>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Founded in 2005, Aura International School provides an enriched environment that fosters curiosity, critical thinking, and character development. Our modern curriculum blends rigorous academic standards with creative arts and competitive athletics.
+              Founded in 2005, ilmsaathi-school provides an enriched environment that fosters curiosity, critical thinking, and character development. Our modern curriculum blends rigorous academic standards with creative arts and competitive athletics.
             </p>
             <div className="space-y-3 pt-2">
               <div className="flex items-center gap-3 text-sm text-slate-300">
@@ -223,7 +223,7 @@ export const LandingPage: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-black">A</div>
-              <span className="text-base font-bold text-white">Aura International School</span>
+              <span className="text-base font-bold text-white">ilmsaathi-school</span>
             </div>
             <p className="text-slate-400">Shaping minds, building leaders, inspiring futures.</p>
           </div>
@@ -258,7 +258,7 @@ export const LandingPage: React.FC = () => {
         </div>
 
         <div className="border-t border-slate-900 pt-6 text-center text-slate-500">
-          © 2026 Aura International School ERP. Enterprise School Management System.
+          © 2026 ilmsaathi-school ERP. Enterprise School Management System.
         </div>
       </footer>
     </div>

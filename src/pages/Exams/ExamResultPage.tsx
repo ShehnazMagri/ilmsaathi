@@ -120,7 +120,7 @@ export const ExamResultPage: React.FC = () => {
         <Modal isOpen={!!selectedResult} onClose={() => setSelectedResult(null)} title="Official Academic Report Card">
           <div id="printable-area" className="space-y-6 text-xs text-slate-200">
             <div className="text-center pb-4 border-b border-slate-700">
-              <h2 className="text-xl font-black text-indigo-400 uppercase tracking-wide">Aura International School</h2>
+              <h2 className="text-xl font-black text-indigo-400 uppercase tracking-wide">ilmsaathi-school</h2>
               <p className="text-xs text-slate-400">Official Term Academic Report Card - Session 2026</p>
             </div>
 

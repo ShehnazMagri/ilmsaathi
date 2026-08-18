@@ -156,7 +156,7 @@ export const FeePayrollPage: React.FC = () => {
         <Modal isOpen={!!selectedPayslip} onClose={() => setSelectedPayslip(null)} title="Official Salary Payslip">
           <div className="space-y-4 text-xs text-slate-200">
             <div className="text-center pb-3 border-b border-slate-700">
-              <h2 className="text-lg font-bold text-indigo-400">Aura International School ERP</h2>
+              <h2 className="text-lg font-bold text-indigo-400">ilmsaathi-school ERP</h2>
               <p className="text-slate-400">Salary Slip for Period: {selectedPayslip.monthYear}</p>
             </div>
 
