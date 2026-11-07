@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import { StatCard } from '../../components/common/StatCard';
 import { Link } from 'react-router-dom';
 import { apiService } from '../../services/api';
@@ -49,6 +50,17 @@ const ATTENDANCE_PIE = [
 
 export const DashboardPage: React.FC = () => {
   const { user, role } = useAuth();
+  const { theme } = useTheme();
+  const isLightTheme = theme === 'light';
+  const chartGrid = isLightTheme ? '#cbd5e1' : '#1e293b';
+  const chartText = isLightTheme ? '#475569' : '#94a3b8';
+  const tooltipStyle = {
+    backgroundColor: isLightTheme ? '#ffffff' : '#0f172a',
+    borderColor: isLightTheme ? '#cbd5e1' : '#334155',
+    borderRadius: '12px',
+    color: isLightTheme ? '#0f172a' : '#f8fafc',
+    boxShadow: isLightTheme ? '0 12px 24px rgba(15, 23, 42, 0.12)' : '0 12px 24px rgba(0, 0, 0, 0.3)'
+  };
 
   const [studentCount, setStudentCount] = useState<number>(0);
   const [teacherCount, setTeacherCount] = useState<number>(0);
@@ -80,10 +92,10 @@ export const DashboardPage: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Top Greeting Banner */}
-      <div className="relative overflow-hidden rounded-3xl p-6 lg:p-8 bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 border border-indigo-500/20 shadow-2xl">
+      <div className="theme-hero relative overflow-hidden rounded-3xl p-6 lg:p-8 bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 border border-indigo-500/20 shadow-2xl">
         <div className="relative z-10 space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold uppercase tracking-wider">
-            {isStudent ? 'Student Academic Dashboard' : isTeacher ? 'Faculty & Teacher Portal' : 'Enterprise ERP Admin'}
+            {isStudent ? 'Student Academic Dashboard' : isTeacher ? 'Faculty & Teacher Portal' : 'IlmSaathi ERP Admin'}
           </div>
           <h1 className="text-2xl lg:text-4xl font-extrabold text-white">
             Welcome back, {user?.name || 'User'}!
@@ -354,10 +366,10 @@ export const DashboardPage: React.FC = () => {
                         <stop offset="95%" stopColor="#EC4899" stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" />
-                    <XAxis dataKey="month" stroke="#64748B" fontSize={11} />
-                    <YAxis stroke="#64748B" fontSize={11} />
-                    <Tooltip contentStyle={{ backgroundColor: '#0F172A', borderColor: '#334155', borderRadius: '12px', color: '#fff' }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} />
+                    <XAxis dataKey="month" stroke={chartText} fontSize={11} />
+                    <YAxis stroke={chartText} fontSize={11} />
+                    <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: tooltipStyle.color }} itemStyle={{ color: tooltipStyle.color }} cursor={{ stroke: '#6366f1', strokeWidth: 1 }} />
                     <Area type="monotone" dataKey="revenue" stroke="#6366F1" strokeWidth={3} fillOpacity={1} fill="url(#colorRev)" name="Revenue ($)" />
                     <Area type="monotone" dataKey="expense" stroke="#EC4899" strokeWidth={2} fillOpacity={1} fill="url(#colorExp)" name="Expense ($)" />
                   </AreaChart>
@@ -379,7 +391,7 @@ export const DashboardPage: React.FC = () => {
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: '#0F172A', borderColor: '#334155', borderRadius: '12px' }} />
+                    <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: tooltipStyle.color }} itemStyle={{ color: tooltipStyle.color }} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>

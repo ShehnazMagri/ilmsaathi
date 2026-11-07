@@ -88,6 +88,46 @@ export const apiService = {
     }
   },
 
+  updateProfileApi: async (profile: { name: string; email: string; phone?: string; avatar?: string }) => {
+    try {
+      const res = await fetch(`${API_BASE}/auth/update-profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token') || ''}`
+        },
+        body: JSON.stringify(profile)
+      });
+      return await res.json();
+    } catch (err: any) {
+      return formatNetworkError(err, 'Profile update failed');
+    }
+  },
+
+  changePasswordApi: async (currentPassword: string, newPassword: string) => {
+    try {
+      const res = await fetch(`${API_BASE}/auth/change-password`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token') || ''}`
+        },
+        body: JSON.stringify({ currentPassword, newPassword })
+      });
+      return await res.json();
+    } catch (err: any) {
+      return formatNetworkError(err, 'Password update failed');
+    }
+  },
+
+  logoutApi: async () => {
+    try {
+      await fetch(`${API_BASE}/auth/logout`, { credentials: 'include' });
+    } catch {
+      // Local logout must still complete if the server is unavailable.
+    }
+  },
+
   forgotPasswordApi: async (email: string) => {
     try {
       const res = await fetch(`${API_BASE}/auth/forgot-password`, {

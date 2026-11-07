@@ -66,7 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onCloseMobile }) =
       {mobileOpen && (
         <div
           onClick={onCloseMobile}
-          className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm lg:hidden animate-fadeIn"
+          className="theme-overlay fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm lg:hidden animate-fadeIn"
         />
       )}
 
@@ -79,13 +79,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onCloseMobile }) =
         <div className="h-16 px-6 flex items-center justify-between border-b border-slate-800 bg-slate-950/50">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/25">
-              A
+              I
             </div>
             <div>
               <h1 className="text-lg font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">
-                SAM<span className="text-indigo-400">SMS</span>
+                Ilm<span className="text-indigo-400">Saathi</span>
               </h1>
-              <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Enterprise ERP</p>
+              <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">School ERP</p>
             </div>
           </div>
 

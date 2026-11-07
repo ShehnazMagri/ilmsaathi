@@ -113,7 +113,7 @@ export const LandingPage: React.FC = () => {
       <section id="about" className="py-20 px-4 lg:px-12 max-w-7xl mx-auto border-t border-slate-900">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">About Aura International</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">About IlmSaathi</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
               A Legacy of Innovation, Ethics & Academic Greatness
             </h2>
@@ -190,7 +190,7 @@ export const LandingPage: React.FC = () => {
       <section id="admissions" className="py-20 px-4 lg:px-12 max-w-7xl mx-auto border-t border-slate-900">
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
           <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">Admission Process</span>
-          <h2 className="text-3xl font-bold text-white">4 Simple Steps to Join Aura</h2>
+          <h2 className="text-3xl font-bold text-white">4 Simple Steps to Join IlmSaathi</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -241,8 +241,8 @@ export const LandingPage: React.FC = () => {
           <div className="space-y-2">
             <h5 className="font-bold text-white uppercase tracking-wider text-[11px]">Contact Us</h5>
             <p className="flex items-center gap-2"><MapPin className="w-4 h-4 text-indigo-400" /> 100 University Parkway, Tech City</p>
-            <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-indigo-400" /> +1 (800) 555-AURA</p>
-            <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-indigo-400" /> admissions@aurasms.edu</p>
+            <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-indigo-400" /> +91 00000 00000</p>
+            <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-indigo-400" /> admissions@ilmsaathi.edu</p>
           </div>
 
           <div className="space-y-2">
@@ -258,7 +258,7 @@ export const LandingPage: React.FC = () => {
         </div>
 
         <div className="border-t border-slate-900 pt-6 text-center text-slate-500">
-          © 2026 ilmsaathi-school ERP. Enterprise School Management System.
+          © 2026 IlmSaathi School ERP. All rights reserved.
         </div>
       </footer>
     </div>

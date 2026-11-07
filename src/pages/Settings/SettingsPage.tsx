@@ -1,15 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
-import { Settings, Shield, Moon, Sun, Save, CheckCircle2 } from 'lucide-react';
+import { apiService } from '../../services/api';
+import { Settings, Shield, Moon, Sun, Save, CheckCircle2, UserCircle, KeyRound } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
-  const { user, role } = useAuth();
+  const { user, role, updateUser } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   const [schoolName, setSchoolName] = useState('ilmsaathi-school');
   const [academicYear, setAcademicYear] = useState('2026-2027');
   const [saved, setSaved] = useState(false);
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+  const [profile, setProfile] = useState({ name: '', email: '', phone: '', avatar: '' });
+  const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+
+  useEffect(() => {
+    if (user) {
+      setProfile({ name: user.name || '', email: user.email || '', phone: user.phone || '', avatar: user.avatar || '' });
+    }
+  }, [user]);
+
+  const handleProfileSave = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsSavingProfile(true);
+    const response = await apiService.updateProfileApi(profile);
+    setIsSavingProfile(false);
+    if (!response.success || !response.user) {
+      toast.error(response.message || 'Unable to update profile.');
+      return;
+    }
+    const updated = { ...response.user, id: response.user.id || response.user._id };
+    updateUser(updated);
+    toast.success('Profile updated successfully.');
+  };
+
+  const handlePasswordChange = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (passwords.newPassword.length < 6) return toast.error('New password must contain at least 6 characters.');
+    if (passwords.newPassword !== passwords.confirmPassword) return toast.error('New passwords do not match.');
+    const response = await apiService.changePasswordApi(passwords.currentPassword, passwords.newPassword);
+    if (!response.success) return toast.error(response.message || 'Unable to change password.');
+    setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    toast.success('Password updated successfully.');
+  };
 
   const handleSaveSettings = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +58,47 @@ export const SettingsPage: React.FC = () => {
         <h1 className="text-2xl lg:text-3xl font-extrabold text-white">System Settings & Profile</h1>
         <p className="text-xs text-slate-400 mt-1">Configure school branding, active academic sessions, role permissions, and user credentials.</p>
       </div>
+
+      <section id="profile" className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl scroll-mt-24">
+        <div className="flex items-center gap-2 mb-5">
+          <UserCircle className="w-5 h-5 text-indigo-400" />
+          <div>
+            <h2 className="text-lg font-bold text-white">My Profile</h2>
+            <p className="text-xs text-slate-400">Update the account details shown in the top profile menu.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          <form onSubmit={handleProfileSave} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Full name</label>
+              <input required value={profile.name} onChange={e => setProfile({ ...profile, name: e.target.value })} className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-4 py-3" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Email address</label>
+              <input required type="email" value={profile.email} onChange={e => setProfile({ ...profile, email: e.target.value })} className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-4 py-3" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Phone number</label>
+              <input value={profile.phone} onChange={e => setProfile({ ...profile, phone: e.target.value })} className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-4 py-3" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Avatar image URL</label>
+              <input type="url" value={profile.avatar} onChange={e => setProfile({ ...profile, avatar: e.target.value })} className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-4 py-3" />
+            </div>
+            <button disabled={isSavingProfile} type="submit" className="sm:col-span-2 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white font-bold text-xs rounded-xl transition-all">
+              {isSavingProfile ? 'Saving profile...' : 'Save profile changes'}
+            </button>
+          </form>
+
+          <form onSubmit={handlePasswordChange} className="border-t xl:border-t-0 xl:border-l border-slate-800 pt-6 xl:pt-0 xl:pl-8 space-y-4">
+            <div className="flex items-center gap-2 text-white"><KeyRound className="w-4 h-4 text-amber-400" /><h3 className="text-sm font-bold">Change password</h3></div>
+            <input required type="password" placeholder="Current password" value={passwords.currentPassword} onChange={e => setPasswords({ ...passwords, currentPassword: e.target.value })} className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-4 py-3" />
+            <input required type="password" placeholder="New password (min. 6 characters)" value={passwords.newPassword} onChange={e => setPasswords({ ...passwords, newPassword: e.target.value })} className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-4 py-3" />
+            <input required type="password" placeholder="Confirm new password" value={passwords.confirmPassword} onChange={e => setPasswords({ ...passwords, confirmPassword: e.target.value })} className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-4 py-3" />
+            <button type="submit" className="w-full py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold text-xs rounded-xl transition-all">Update password</button>
+          </form>
+        </div>
+      </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: School Metadata & Branding */}

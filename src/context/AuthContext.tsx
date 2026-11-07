@@ -7,6 +7,7 @@ interface AuthContextType {
   role: UserRole;
   token: string | null;
   login: (email: string, role: UserRole, customUserObj?: Partial<User>, authToken?: string) => void;
+  updateUser: (updatedUser: User) => void;
   logout: () => void;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -86,12 +87,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
+    void apiService.logoutApi();
     setUser(null);
     setToken(null);
     setRole('student');
     localStorage.removeItem('token');
     localStorage.removeItem('user_role');
     localStorage.removeItem('user_data');
+  };
+
+  const updateUser = (updatedUser: User) => {
+    setUser(updatedUser);
+    setRole(updatedUser.role);
+    localStorage.setItem('user_data', JSON.stringify(updatedUser));
+    localStorage.setItem('user_role', updatedUser.role);
   };
 
   return (
@@ -101,6 +110,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         role: user ? user.role : role,
         token,
         login,
+        updateUser,
         logout,
         isAuthenticated: !!user && !!token,
         isLoading

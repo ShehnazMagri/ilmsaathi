@@ -6,7 +6,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex transition-colors duration-200">
       {/* Sidebar Navigation */}
       <Sidebar mobileOpen={mobileOpen} onCloseMobile={() => setMobileOpen(false)} />
 

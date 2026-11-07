@@ -88,7 +88,7 @@ export const LoginPage: React.FC = () => {
             {isRegister ? 'Create your account' : 'Sign in to your account'}
           </h1>
           <p className="text-xs sm:text-sm text-slate-400">
-            {isRegister ? 'Register your account in Enterprise School ERP' : 'Enter your registered email & password below'}
+            {isRegister ? 'Register your account in IlmSaathi School ERP' : 'Enter your registered email & password below'}
           </p>
         </div>
 

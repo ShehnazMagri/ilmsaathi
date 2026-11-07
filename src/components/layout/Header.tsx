@@ -9,6 +9,7 @@ import {
   Sun,
   Moon,
   LogOut,
+  UserCircle,
   ChevronDown,
   Menu,
   Shield
@@ -91,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleMobileSidebar }) => {
               <div className="mt-3 space-y-2.5 text-xs">
                 <div className="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/50">
                   <p className="font-semibold text-slate-200">System Connection Active</p>
-                  <p className="text-[11px] text-slate-400 mt-0.5">Connected to Enterprise School ERP Server</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">Connected to IlmSaathi School ERP Server</p>
                 </div>
               </div>
             </div>
@@ -102,7 +103,8 @@ export const Header: React.FC<HeaderProps> = ({ onToggleMobileSidebar }) => {
         <button
           onClick={toggleTheme}
           className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-          title="Toggle Theme"
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
         >
           {theme === 'dark' ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-slate-300" />}
         </button>
@@ -131,6 +133,16 @@ export const Header: React.FC<HeaderProps> = ({ onToggleMobileSidebar }) => {
                 <p className="text-xs font-bold text-white">{user?.name}</p>
                 <p className="text-[11px] text-slate-400 truncate">{user?.email}</p>
               </div>
+              <button
+                onClick={() => {
+                  setShowProfileMenu(false);
+                  navigate('/settings#profile');
+                }}
+                className="w-full flex items-center gap-2 px-4 py-2.5 text-xs text-slate-300 hover:bg-slate-800 font-semibold transition-colors"
+              >
+                <UserCircle className="w-4 h-4 text-indigo-400" />
+                <span>My Profile</span>
+              </button>
               <button
                 onClick={() => {
                   logout();
